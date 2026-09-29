@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.codestart.backend.dto.UserLoginRequest;
 import com.codestart.backend.dto.UserRegistrationRequest;
 import com.codestart.backend.service.UserService;
 
@@ -38,6 +39,14 @@ public class UserController {
 	{
 		userService.registerUser(dto);
 		return ResponseEntity.status(201).body("User registered successfully");
+	}
+	
+	
+	@PostMapping("/login")
+	public ResponseEntity<String> loginUser(@RequestBody UserLoginRequest dto)
+	{
+		String token = userService.loginUser(dto);
+		return ResponseEntity.ok(token);
 	}
 
 }

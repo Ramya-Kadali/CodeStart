@@ -1,7 +1,7 @@
 package com.codestart.backend.controllertest;
 
 import static org.mockito.Mockito.doNothing;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +43,29 @@ class UserControllerTest {
                     .content(request)
             )
             .andExpect(status().isCreated());
+    }
+    
+    @Test
+    void loginuser_shouldReturn200() throws Exception{
+    	doNothing().when(userService).loginUser(
+                org.mockito.ArgumentMatchers.any()
+            );
+
+            String request = """
+                {
+                    
+                    "email": "test@gmail.com",
+                    "password": "mypassword123"
+                }
+                """;
+
+            mockMvc.perform(
+                    post("/api/users/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request)
+                )
+                .andExpect(status().isOk());
+    	
     }
 
     

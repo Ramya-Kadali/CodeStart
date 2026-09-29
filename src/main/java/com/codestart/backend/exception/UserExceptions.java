@@ -20,6 +20,12 @@ public class UserExceptions {
 		{
 			return ResponseEntity.status(400).body(ex.getMessage());
 		}
+	
+	@ExceptionHandler(InvalidLoginDataException.class)
+	public ResponseEntity<String> handle(InvalidLoginDataException ex)
+	{
+		return ResponseEntity.status(400).body(ex.getMessage());
+	}
 
 
 }
